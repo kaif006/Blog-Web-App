@@ -1,0 +1,41 @@
+body{
+    background-color: black;
+    color: antiquewhite;
+}
+
+h1{
+    margin-left: 40px;
+    font-family:  sans-serif;
+    color: antiquewhite;
+}
+
+.navBar{
+    background-color: rgb(32, 32, 32);
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.Menu{
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+.Menu a {
+    text-decoration: none; /* Remove underline */
+    color: inherit;        /* Make links inherit text color */
+}
+
+.Menu a:hover{
+    color: rgb(168, 57, 202)
+
+}
+
+.posts{
+    padding: 5px;
+    margin: 5px;
+    gap:5px;
+    background-color: rgb(32, 32, 32);
+}
