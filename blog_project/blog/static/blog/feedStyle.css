@@ -3,6 +3,17 @@ body{
     color: antiquewhite;
 }
 
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  
+    margin: 0;
+    flex-direction: column; 
+    font-family: Arial, sans-serif;
+    padding-top: 300px;
+}
+
 h1{
     margin-left: 40px;
     font-family:  sans-serif;
@@ -13,6 +24,8 @@ h1{
     background-color: rgb(32, 32, 32);
     padding: 3px;
     border-radius: 3px;
+    position: relative;
+    z-index: 100;
 }
 
 .Menu{
@@ -24,8 +37,8 @@ h1{
 }
 
 .Menu a {
-    text-decoration: none; /* Remove underline */
-    color: inherit;        /* Make links inherit text color */
+    text-decoration: none; 
+    color: inherit;      
 }
 
 .Menu a:hover{
@@ -33,9 +46,37 @@ h1{
 
 }
 
-.posts{
+.post{
     padding: 5px;
-    margin: 5px;
+    margin: 20px 0;
     gap:5px;
+    border-radius: 5px;
     background-color: rgb(32, 32, 32);
+    width: 80%;
+    height: auto;
+
+}
+
+.post img{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 80%;
+    height: auto;
+    align-items: center;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
+.post p {
+    text-align: center;
+    font-size: 1.1em;
+    margin: 10px 0;
+}
+
+.post small {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
 }
