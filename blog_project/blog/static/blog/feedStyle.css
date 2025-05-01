@@ -7,11 +7,10 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;  
+    padding-top: 100px;
     margin: 0;
     flex-direction: column; 
     font-family: Arial, sans-serif;
-    padding-top: 300px;
 }
 
 h1{
@@ -23,8 +22,10 @@ h1{
 .navBar{
     background-color: rgb(32, 32, 32);
     padding: 3px;
+    width: 100vw;
     border-radius: 3px;
-    position: relative;
+    position: fixed;
+    top: 0;
     z-index: 100;
 }
 
@@ -52,15 +53,17 @@ h1{
     gap:5px;
     border-radius: 5px;
     background-color: rgb(32, 32, 32);
-    width: 80%;
+    width: 50%;
     height: auto;
+    position: relative;
+    z-index: 0;
 
 }
 
 .post img{
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 80%;
+    width: 90%;
     height: auto;
     align-items: center;
     border-radius: 5px;
@@ -79,4 +82,48 @@ h1{
     text-align: center;
     font-size: 0.9em;
     color: #555;
+}
+
+/* add Post page styling */
+
+form {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: black;
+}
+
+form input[type="text"],
+form input[type="file"] {
+    width: 100%;
+    color: black;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
 }

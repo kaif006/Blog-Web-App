@@ -3,7 +3,9 @@
 {% block content %}
 {% for post in posts %}
     <div class="post">
-        <img src="{{ post.image.url }}" alt="Post Image">
+        {% if post.image %}  <!-- Check if image exists -->
+            <img src="{{ post.image.url }}" alt="Post image">
+        {% endif %}
         <p>{{ post.caption }}</p>
         <small>Posted by: {{ post.author.username }}</small>
     </div>
