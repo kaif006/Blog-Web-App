@@ -14,6 +14,9 @@
                 <li id="home"><a href="{% url 'feed' %}">Home</a></li>
                 <li id="profile"><a>Profile</a></li>
                 <li id="create-post"><a href="{% url 'add-post' %}">Add Post</a></li>
+                <li> 
+                    <li><button onclick="window.location.href='{% url 'logout' %}'">Logout</button></li>
+                </li>
             </ul>
         </nav>
     </header>

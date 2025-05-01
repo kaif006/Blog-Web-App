@@ -22,6 +22,9 @@ def feed(request):
         "posts": posts
     })
 
+def profile(request):
+    pass
+
 ## form for creatinf post
 class PostForm(forms.ModelForm):
     class Meta:
@@ -64,4 +67,7 @@ def login_view(request):
     return render(request, "blog/login.html")
     
 def logout_view(request):
-    pass
+    logout(request)
+    return render(request, "blog/login.html", {
+        "message": "Logged Out"
+    })
