@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django import forms
-from .models import Post
+from .models import Post, Like
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
@@ -70,4 +70,29 @@ def logout_view(request):
     logout(request)
     return render(request, "blog/login.html", {
         "message": "Logged Out"
+    })
+
+def toggle_like(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    like, created = Like.objects.get_or_create(user=user, post=post)
+    if not created:
+        like.delete()
+        liked = False
+    else:
+        liked = True
+
+    return JsonResponse({
+        'liked': liked,
+        'likes_count': Like.objects.filter(post=post).count()
+    })
+
+def get_like_status(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    liked = Like.objects.filter(user=user, post=post).exists()
+    likes_count = Like.objects.filter(post=post).count()
+    return JsonResponse({
+        'liked': liked,
+        'likes_count': likes_count
     })

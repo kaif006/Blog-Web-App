@@ -8,7 +8,31 @@
         {% endif %}
         <p>{{ post.caption }}</p>
         <small>Posted by: {{ post.author.username }}</small>
+
+        <div class="like-section">
+    <button class="like-btn" data-id="{{ post.id }}">
+        {% if user in post.likes.all %}
+            ❤️ Liked
+        {% else %}
+            🤍 Like
+        {% endif %}
+    </button>
+    <p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p>
+
+    {% if post.author == user %}
+        <details>
+            <summary>See who liked</summary>
+            <ul>
+                {% for liker in post.likes.all %}
+                    <li>{{ liker.username }}</li>
+                {% endfor %}
+            </ul>
+        </details>
+    {% endif %}
     </div>
+    </div>
+    
+
 {% empty %}
 <p>No posts to display.</p>
 {% endfor %}

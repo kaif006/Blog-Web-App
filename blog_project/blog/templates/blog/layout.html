@@ -4,7 +4,7 @@
 <head>
     <link href="{% static 'blog/feedStyle.css' %}" rel="stylesheet">
     <title>{% block title %}My Feed{% endblock %}</title>
-
+    <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
     <header>
@@ -15,7 +15,7 @@
                 <li id="profile"><a>Profile</a></li>
                 <li id="create-post"><a href="{% url 'add-post' %}">Add Post</a></li>
                 <li> 
-                    <li><button onclick="window.location.href='{% url 'logout' %}'">Logout</button></li>
+                    <li><button id="logout" onclick="window.location.href='{% url 'logout' %}'">Logout</button></li>
                 </li>
             </ul>
         </nav>
@@ -26,6 +26,7 @@
         <!-- Page specific content will go here -->
         {% endblock %}
     </main>
+    <script src="{% static 'blog/scripts/feed.js' %}"></script>
 
 </body>
 </html>

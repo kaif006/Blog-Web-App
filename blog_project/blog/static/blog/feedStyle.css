@@ -29,6 +29,26 @@ h1{
     z-index: 100;
 }
 
+.navBar .logout {
+    background-color: rgb(90, 90, 90);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navBar .logout:hover {
+    background-color: rgb(120, 120, 120);
+    color: red;
+}
+
+/* If you want a more dramatic hover effect */
+.navBar .logout:active {
+    transform: scale(0.98);
+}
+
 .Menu{
     text-align: center;
     overflow: hidden;
