@@ -36,3 +36,18 @@ document.querySelectorAll('.like-btn').forEach(button => {
         });
     });
 });
+
+
+document.querySelectorAll('.toggle-comments-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const postId = button.dataset.id;
+        const commentsSection = document.getElementById(`comments-${postId}`);
+        if (commentsSection.style.display === 'none') {
+            commentsSection.style.display = 'block';
+            button.innerText = '🙈 Hide Comments';
+        } else {
+            commentsSection.style.display = 'none';
+            button.innerText = '💬 Show Comments';
+        }
+    });
+});

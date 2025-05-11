@@ -10,26 +10,41 @@
         <small>Posted by: {{ post.author.username }}</small>
 
         <div class="like-section">
-    <button class="like-btn" data-id="{{ post.id }}">
-        {% if user in post.likes.all %}
-            ❤️ Liked
-        {% else %}
-            🤍 Like
-        {% endif %}
-    </button>
-    <p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p>
+            <button class="like-btn" data-id="{{ post.id }}">
+                {% if user in post.likes.all %}
+                    ❤️ Liked
+                {% else %}
+                    🤍 Like
+                {% endif %}
+            </button>
+            <p>{{ post.likes.count }} like{{ post.likes.count|pluralize }}</p>
 
-    {% if post.author == user %}
-        <details>
+            {% if post.author == user %}
+            <details>
             <summary>See who liked</summary>
             <ul>
                 {% for liker in post.likes.all %}
                     <li>{{ liker.username }}</li>
                 {% endfor %}
             </ul>
-        </details>
-    {% endif %}
-    </div>
+            </details>
+            {% endif %}
+        </div>
+        <button class="toggle-comments-btn" data-id="{{ post.id }}">💬 Show Comments</button>
+        <div class="comments-section" id="comments-{{ post.id }}" style="display: none; margin-top: 10px;">
+            {% for comment in post.comments.all %}
+                <p><strong>{{ comment.author.username }}:</strong> {{ comment.text }}</p>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+
+            <form method="post" action="{% url 'feed' %}">
+                {% csrf_token %}
+                <input type="hidden" name="comment_post_id" value="{{ post.id }}">
+                {{ comment_form.as_p }}
+                <button type="submit">Add Comment</button>
+            </form>
+        </div>
     </div>
     
 

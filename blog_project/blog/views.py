@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django import forms
-from .models import Post, Like
+from .models import Post, Like, Comment
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
@@ -11,15 +11,56 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+class commentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text"]
+        widgets = {
+            "text": forms.Textarea(attrs={"rows": 2, "placeholder": "Write a comment..."})
+        }
+
 ## view for the feed
 #@login_required(login_url='login')
 def feed(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
-    posts = Post.objects.all().order_by("-created_date")
+    #posts = Post.objects.all().order_by("-created_date")
+    feed_query = """
+    SELECT 
+        bp.*,
+        COUNT(DISTINCT bl.id) * 2 AS like_score,
+        COUNT(DISTINCT bc.id) * 3 AS comment_score,
+        (
+            (1 / (1 + TIMESTAMPDIFF(HOUR, bp.created_date, NOW()))) * 50 +
+            COUNT(DISTINCT bl.id) * 2 +
+            COUNT(DISTINCT bc.id) * 3
+        ) AS feed_score
+    FROM 
+        blog_post bp
+    LEFT JOIN 
+        blog_like bl ON bp.id = bl.post_id
+    LEFT JOIN 
+        blog_comment bc ON bp.id = bc.post_id
+    GROUP BY 
+        bp.id
+    ORDER BY 
+        feed_score DESC
+    """
+    posts = Post.objects.raw(feed_query)
+    comment_form = commentForm()
+
+    if request.method == "POST" and "comment_post_id" in request.POST:
+        form = commentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post = Post.objects.get(id=request.POST["comment_post_id"])
+            comment.save()
+            return redirect("feed")
     return render(request, "blog/feed.html", {
         "home": "home",
-        "posts": posts
+        "posts": posts,
+        'comment_form': comment_form
     })
 
 def profile(request):
@@ -96,3 +137,4 @@ def get_like_status(request, post_id):
         'liked': liked,
         'likes_count': likes_count
     })
+
