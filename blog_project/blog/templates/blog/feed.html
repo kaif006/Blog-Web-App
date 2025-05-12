@@ -30,7 +30,7 @@
             </details>
             {% endif %}
         </div>
-        <button class="toggle-comments-btn" data-id="{{ post.id }}">💬 Show Comments</button>
+        <button class="toggle-comments-btn" data-id="{{ post.id }}">💬 Comments</button>
         <div class="comments-section" id="comments-{{ post.id }}" style="display: none; margin-top: 10px;">
             {% for comment in post.comments.all %}
                 <p><strong>{{ comment.author.username }}:</strong> {{ comment.text }}</p>

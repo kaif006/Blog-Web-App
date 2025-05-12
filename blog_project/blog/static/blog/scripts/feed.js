@@ -44,10 +44,10 @@ document.querySelectorAll('.toggle-comments-btn').forEach(button => {
         const commentsSection = document.getElementById(`comments-${postId}`);
         if (commentsSection.style.display === 'none') {
             commentsSection.style.display = 'block';
-            button.innerText = '🙈 Hide Comments';
+            button.innerText = '🙈 Comments';
         } else {
             commentsSection.style.display = 'none';
-            button.innerText = '💬 Show Comments';
+            button.innerText = '💬 Comments';
         }
     });
 });
